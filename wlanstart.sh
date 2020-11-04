@@ -17,6 +17,7 @@ true ${HW_MODE:=g}
 true ${DRIVER:=nl80211}
 true ${HT_CAPAB:=[HT40-][SHORT-GI-20][SHORT-GI-40]}
 true ${MODE:=host}
+true ${DNS:=8.8.8.8, 8.8.4.4}
 
 # Attach interface to container in guest mode
 if [ "$MODE" == "guest"  ]; then
@@ -110,7 +111,7 @@ fi
 echo "Configuring DHCP server .."
 
 cat > "/etc/dhcp/dhcpd.conf" <<EOF
-option domain-name-servers 8.8.8.8, 8.8.4.4;
+option domain-name-servers ${DNS};
 option subnet-mask 255.255.255.0;
 option routers ${AP_ADDR};
 subnet ${SUBNET} netmask 255.255.255.0 {
